@@ -25,6 +25,7 @@ type HistoriaClinica {
 # Query para consultar historias por cédula del paciente
 type Query {
     obtenerHistoriasPorCedula(cedula: ID!): [HistoriaClinica!]!
+    hello: String
 }
 
 # Inputs para registrar historia clínica
