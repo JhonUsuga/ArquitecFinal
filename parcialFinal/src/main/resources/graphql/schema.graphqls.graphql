@@ -1,0 +1,57 @@
+type Paciente {
+    cedula: ID!
+    nombre: String!
+    apellido: String!
+    edad: Int!
+    genero: String!
+}
+
+type Doctor {
+    cedulaProfesional: ID!
+    nombre: String!
+    especialidad: String!
+}
+
+type HistoriaClinica {
+    id: ID!
+    motivoConsulta: String!
+    diagnostico: String!
+    tratamiento: String!
+    fecha: String!
+    paciente: Paciente!
+    doctor: Doctor!
+}
+
+# Query para consultar historias por cédula del paciente
+type Query {
+    obtenerHistoriasPorCedula(cedula: ID!): [HistoriaClinica!]!
+}
+
+# Inputs para registrar historia clínica
+input PacienteInput {
+    cedula: ID!
+    nombre: String!
+    apellido: String!
+    edad: Int!
+    genero: String!
+}
+
+input DoctorInput {
+    cedulaProfesional: ID!
+    nombre: String!
+    especialidad: String!
+}
+
+input HistoriaClinicaInput {
+    motivoConsulta: String!
+    diagnostico: String!
+    tratamiento: String!
+    fecha: String!
+    paciente: PacienteInput!
+    doctor: DoctorInput!
+}
+
+# Mutation para registrar historia
+type Mutation {
+    registrarHistoria(input: HistoriaClinicaInput!): HistoriaClinica!
+}
