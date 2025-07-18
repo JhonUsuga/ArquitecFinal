@@ -22,13 +22,21 @@ type HistoriaClinica {
     doctor: Doctor!
 }
 
-# Query para consultar historias por cédula del paciente
+# Queries disponibles
 type Query {
-    obtenerHistoriasPorCedula(cedula: ID!): [HistoriaClinica!]!
     hello: String
+
+    # Historia clínica
+    obtenerHistorias: [HistoriaClinica!]!
+    obtenerHistoriaPorId(id: ID!): HistoriaClinica
+    obtenerHistoriasPorCedula(cedula: ID!): [HistoriaClinica!]!
+
+    # Pacientes y doctores
+    obtenerPacientes: [Paciente!]!
+    obtenerDoctores: [Doctor!]!
 }
 
-# Inputs para registrar historia clínica
+# Inputs para mutaciones
 input PacienteInput {
     cedula: ID!
     nombre: String!
@@ -52,7 +60,10 @@ input HistoriaClinicaInput {
     doctor: DoctorInput!
 }
 
-# Mutation para registrar historia
+# Mutaciones disponibles
 type Mutation {
     registrarHistoria(input: HistoriaClinicaInput!): HistoriaClinica!
+    registrarPaciente(input: PacienteInput!): Paciente!
+    registrarDoctor(input: DoctorInput!): Doctor!
 }
+

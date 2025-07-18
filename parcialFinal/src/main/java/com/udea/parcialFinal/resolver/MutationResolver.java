@@ -23,7 +23,7 @@ public class MutationResolver {
 
     @MutationMapping
     public HistoriaClinica registrarHistoria(@Argument HistoriaClinicaInput input) {
-        // Guardar paciente
+        // Guardar o actualizar paciente
         Paciente paciente = new Paciente(
                 input.getPaciente().getCedula(),
                 input.getPaciente().getNombre(),
@@ -33,7 +33,7 @@ public class MutationResolver {
         );
         pacienteRepository.save(paciente);
 
-        // Guardar doctor
+        // Guardar o actualizar doctor
         Doctor doctor = new Doctor(
                 input.getDoctor().getCedulaProfesional(),
                 input.getDoctor().getNombre(),
@@ -51,5 +51,27 @@ public class MutationResolver {
         historia.setDoctor(doctor);
 
         return historiaClinicaRepository.save(historia);
+    }
+
+    @MutationMapping
+    public Paciente registrarPaciente(@Argument PacienteInput input) {
+        Paciente paciente = new Paciente(
+                input.getCedula(),
+                input.getNombre(),
+                input.getApellido(),
+                input.getEdad(),
+                input.getGenero()
+        );
+        return pacienteRepository.save(paciente);
+    }
+
+    @MutationMapping
+    public Doctor registrarDoctor(@Argument DoctorInput input) {
+        Doctor doctor = new Doctor(
+                input.getCedulaProfesional(),
+                input.getNombre(),
+                input.getEspecialidad()
+        );
+        return doctorRepository.save(doctor);
     }
 }
